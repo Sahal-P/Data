@@ -1,12 +1,12 @@
 import axios from "axios";
-import { SyntheticEvent, useState } from "react";
+import { useState } from "react";
 import { Link, Navigate } from "react-router-dom"
 import { useDispatch ,useSelector} from 'react-redux';
-import { setAuth, authActions } from '../../Redux/auth.slice';
+import { adminAuthActions } from '../../Redux/admin.slice';
 import Logo from '../../olx-logo.png';
-import './Login.css';
+import './AdminLogin.css';
 
-function Login() {
+function AdminLoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
@@ -14,11 +14,11 @@ function Login() {
 
   const submit = (e)=>{
       e.preventDefault();
-      return dispatch(authActions.login({email, password}))
+      return dispatch(adminAuthActions.adminLogin({email, password}))
   }
   return (
     <div>
-      <div className="loginParentDiv">
+      <div className="adminloginParentDiv">
         <img width="200px" height="200px" src={Logo}></img>
         <form onSubmit={submit}>
           <label htmlFor="fname">Email</label>
@@ -28,29 +28,27 @@ function Login() {
             type="email"
             id="fname"
             name="email"
-            defaultValue="John"
+            defaultValue="admin"
             onChange={(e)=>setEmail(e.target.value)}
           />
           <br />
-          <label htmlFor="lname">Password</label>
+          <label htmlFor="lname">Password</label> 
           <br />
           <input
             className="input"
             type="password"
             id="lname"
             name="password"
-            defaultValue="Doe"
+            defaultValue="admin"
             onChange={(e)=>setPassword(e.target.value)}
-
           />
           <br />
           <br />
-          <button type="submit">Login</button>
+          <button>Login</button>
         </form>
-        <Link to={'/signup'}>Signup</Link>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default AdminLoginPage;

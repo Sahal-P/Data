@@ -1,4 +1,7 @@
-import React from 'react';
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom"
+import { useDispatch } from "react-redux";
+import { authActions } from "../../Redux/auth.slice";
 
 import './Header.css';
 import OlxLogo from '../../assets/OlxLogo';
@@ -7,6 +10,12 @@ import Arrow from '../../assets/Arrow';
 import SellButton from '../../assets/SellButton';
 import SellButtonPlus from '../../assets/SellButtonPlus';
 function Header() {
+  const auth = useSelector((state) => state.auth.value)
+    const dispatch = useDispatch()
+    let links;
+    const Logout = ()=>{        
+        dispatch(authActions.logout())
+    }
   return (
     <div className="headerParentDiv">
       <div className="headerChildDiv">
@@ -15,7 +24,7 @@ function Header() {
         </div>
         <div className="placeSearch">
           <Search></Search>
-          <input type="text" />
+          <input type="text" /> 
           <Arrow></Arrow>
         </div>
         <div className="productSearch">
@@ -34,7 +43,11 @@ function Header() {
           <Arrow></Arrow>
         </div>
         <div className="loginPage">
-          <span>Login</span>
+          {auth ?
+           <span style={{cursor :"pointer"}} onClick={Logout}>Log Out</span> :
+          <Link to={'/login'}><span>login</span></Link>
+           }
+          
           <hr />
         </div>
 
